@@ -149,12 +149,13 @@ RUN dpkg-reconfigure -f noninteractive tzdata
 # Add runner script
 COPY files/runner.sh /runner.sh
 RUN chmod +x /runner.sh
-COPY files/bashrc /.bashrc
-COPY files/vimrc /.vimrc
+WORKDIR /root
+COPY files/bashrc .bashrc
+COPY files/vimrc .vimrc
 
 ## Set the working directory
 WORKDIR /home/workspace
-RUN mkdir /home/workspace/notebooks
+#RUN mkdir /home/workspace/notebooks
 #VOLUME /Users/marsan/wordspace
 
 EXPOSE 8880:8900

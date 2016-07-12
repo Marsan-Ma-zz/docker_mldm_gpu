@@ -1,12 +1,11 @@
 #!/bin/bash
 
-WORK=$HOME/workspace
-
+mkdir $HOME/workspace/notebooks
 nvidia-docker run -d \
   --name=mldm_gpu \
-  -v $WORK:/home/$(whoami)/workspace \
+  -v $HOME/workspace:/home/workspace \
   -p 8880-8899:8880-8899 \
-  -it marsan/mldm_gpu
+  -it marsan/mldm_gpu ipynb
 
 #  --device /dev/nvidia0:/dev/nvidia0 \
 #  --device /dev/nvidia1:/dev/nvidia1 \
