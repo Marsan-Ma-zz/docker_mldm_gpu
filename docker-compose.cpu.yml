@@ -1,0 +1,23 @@
+version: '2'
+services:
+  redis:
+    image: redis
+    container_name: mldm_redis
+  mongo3:
+    image: marsan/mongo3
+    container_name: mldm_mongo3
+  pg:
+    image: postgres
+    container_name: mldm_pg
+  env:
+    build: .
+    command: ipynb #bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - ~/workspace:/home/workspace
+    depends_on:
+      - mongo3
+      - redis
+    ports:
+      - "8880-8900:8880-8900"
+      - "8579:8579"
+    container_name: mldm_env
