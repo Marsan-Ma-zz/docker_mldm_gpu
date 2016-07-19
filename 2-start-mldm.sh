@@ -1,6 +1,10 @@
 #!/bin/bash
 
-mkdir $HOME/workspace/notebooks
+
+# [prepare dir for Jupyter]
+mkdir -p $HOME/workspace/notebooks
+
+# [start container with GPU support]
 nvidia-docker run -d \
   --name=mldm_gpu \
   -v $HOME/workspace:/home/workspace \
