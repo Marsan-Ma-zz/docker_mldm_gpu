@@ -100,17 +100,24 @@ RUN pip install -U \
   cherrypy \
   jieba3k \
   yolk3k \
-  azure \
+  azure
+
+RUN pip install \
   cython \
-  html5lib \
+  html5lib
+
+RUN pip install \
   pyyaml \
   demjson \
-  hanziconv \
+  hanziconv
+
+RUN pip install \
   ftfy \
   hiredis \
-  google-api-python-client
+  google-api-python-client \
+  regex
 
-RUN pip install -U \
+RUN pip install \
   Django \
   django-pipeline \
   django-bootstrap3 \
@@ -125,9 +132,9 @@ RUN pip install \
   django-dashing
 
 
-# MySQL
-RUN apt-get install -y python3-dev libmysqlclient-dev
-RUN pip install mysqlclient
+## MySQL
+#RUN apt-get install -y python3-dev libmysqlclient-dev
+#RUN pip install mysqlclient
 
 
 # pathos (python parallel process)
@@ -137,7 +144,7 @@ RUN pip install mysqlclient
 #  newspaper3k
 
 # Tensorflow GPU supported version
-RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.9.0-cp35-cp35m-linux_x86_64.whl
+RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.10.0rc0-cp35-cp35m-linux_x86_64.whl
 
 
 #---------------------------------
@@ -165,13 +172,6 @@ RUN apt-get update | apt-get upgrade -y
 RUN apt-get install libpam-cracklib -y
 RUN ln -s /lib/x86_64-linux-gnu/security/pam_cracklib.so /lib/security
 
-# Define working directory.
-WORKDIR /etc/supervisor/conf.d
-
-# ------------------------------------------------------------------------------
-# Start supervisor, define default command.
-# CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
-
 
 
 #---------------------------------
@@ -181,18 +181,18 @@ WORKDIR /etc/supervisor/conf.d
 RUN echo "Asia/Taipei" > /etc/timezone 
 RUN dpkg-reconfigure -f noninteractive tzdata
 
-# Add runner script
-COPY files/runner.sh /runner.sh
-RUN chmod +x /runner.sh
-WORKDIR /root
+# conventions
 COPY files/bashrc .bashrc
 COPY files/vimrc .vimrc
 
+# setup supervisor apps & start supervisor
+COPY files/supervisor/* /etc/supervisor/conf.d/
+CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+
 ## Set the working directory
 WORKDIR /home/workspace
-#RUN mkdir /home/workspace/notebooks
-#VOLUME /Users/marsan/wordspace
 
 EXPOSE 8880:8900
+EXPOSE 80
+EXPOSE 443
 
-ENTRYPOINT ["/runner.sh"]
