@@ -5,7 +5,8 @@
 mkdir -p $HOME/workspace/notebooks
 
 # [start container with GPU support]
-nvidia-docker run -d \
+#nvidia-docker run -d \
+docker run -d \
   --name=mldm_gpu \
   -v $HOME/workspace:/home/workspace \
   -p 8880-8900:8880-8900 -p 80:80 -p 443:443 \

@@ -144,8 +144,18 @@ RUN pip install \
 #  newspaper3k
 
 # Tensorflow GPU supported version
-RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.10.0rc0-cp35-cp35m-linux_x86_64.whl
+RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0rc0-cp35-cp35m-linux_x86_64.whl
 
+
+#---------------------------------
+#   For OpenAI Gym
+#---------------------------------
+RUN apt-get install -y \
+    python-opengl \
+    xorg-dev \
+    libglu1-mesa libgl1-mesa-dev \
+    xvfb \
+    libxinerama1 libxcursor1
 
 #---------------------------------
 #   Supervisord
