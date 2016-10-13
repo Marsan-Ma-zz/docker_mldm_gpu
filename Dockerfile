@@ -1,5 +1,6 @@
 # machine learning gears
-FROM gcr.io/tensorflow/tensorflow:latest-devel-gpu
+#FROM gcr.io/tensorflow/tensorflow:latest-devel-gpu
+FROM gcr.io/tensorflow/tensorflow:latest-gpu
 MAINTAINER Marsan Ma <marsan@gmail.com>
 
 #---------------------------------
@@ -93,7 +94,7 @@ RUN pip install --upgrade mpld3 && \
 RUN conda install mkl
 RUN conda install libgfortran
 
-RUN pip install -U \
+RUN pip install \
   pandas \
   mongoengine \
   bottle \
@@ -192,8 +193,8 @@ RUN echo "Asia/Taipei" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
 # conventions
-COPY files/bashrc .bashrc
-COPY files/vimrc .vimrc
+COPY files/bashrc /root/.bashrc
+COPY files/vimrc /root/.vimrc
 
 # setup supervisor apps & start supervisor
 COPY files/supervisor/* /etc/supervisor/conf.d/

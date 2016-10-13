@@ -36,16 +36,21 @@ sudo apt-get install -y gcc make
 sudo apt-get install -y linux-image-extra-`uname -r` linux-headers-`uname -r` linux-image-`uname -r`
 
 # install nvidia driver
-wget http://us.download.nvidia.com/XFree86/Linux-x86_64/367.27/NVIDIA-Linux-x86_64-367.27.run
-chmod +x NVIDIA-Linux-x86_64-367.27.run
-sudo ./NVIDIA-Linux-x86_64-367.27.run -a -x --ui=none
-rm ./NVIDIA-Linux-x86_64-367.27.run
-rm -rf ./NVIDIA-Linux-x86_64-367.27
+#wget http://us.download.nvidia.com/XFree86/Linux-x86_64/367.27/NVIDIA-Linux-x86_64-367.27.run
+wget http://us.download.nvidia.com/XFree86/Linux-x86_64/367.57/NVIDIA-Linux-x86_64-367.57.run
+chmod +x NVIDIA-Linux-x86_64-367.57.run
+sudo ./NVIDIA-Linux-x86_64-367.57.run -a -x --ui=none
+rm ./NVIDIA-Linux-x86_64-367.57.run
+rm -rf ./NVIDIA-Linux-x86_64-367.57
 
 # install cuda repository
-wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.5-18_amd64.deb
-sudo dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb
-rm ./cuda-repo-ubuntu1404_7.5-18_amd64.deb
+#wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.5-18_amd64.deb
+#sudo dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb
+#rm ./cuda-repo-ubuntu1404_7.5-18_amd64.deb
+wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_8.0.44-1_amd64.deb
+sudo dpkg -i --force-overwrite cuda-repo-ubuntu1604_8.0.44-1_amd64.deb
+rm ./cuda-repo-ubuntu1604_8.0.44-1_amd64.deb
+
 
 #update apt
 sudo apt-get update
