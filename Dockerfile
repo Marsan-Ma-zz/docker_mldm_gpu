@@ -1,5 +1,6 @@
 # machine learning gears
-FROM gcr.io/tensorflow/tensorflow:latest-devel-gpu
+#FROM gcr.io/tensorflow/tensorflow:latest-devel-gpu
+FROM gcr.io/tensorflow/tensorflow:latest-gpu
 MAINTAINER Marsan Ma <marsan@gmail.com>
 
 #---------------------------------
@@ -109,7 +110,8 @@ RUN pip install \
 RUN pip install \
   pyyaml \
   demjson \
-  hanziconv
+  hanziconv \
+  tweepy
 
 RUN pip install \
   ftfy \
@@ -144,8 +146,17 @@ RUN pip install \
 #  newspaper3k
 
 # Tensorflow GPU supported version
-RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.10.0rc0-cp35-cp35m-linux_x86_64.whl
+RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.0.0-cp35-cp35m-linux_x86_64.whl
 
+#---------------------------------
+#   For OpenAI Gym
+#---------------------------------
+RUN apt-get install -y \
+    python-opengl \
+    xorg-dev \
+    libglu1-mesa libgl1-mesa-dev \
+    xvfb \
+    libxinerama1 libxcursor1
 
 #---------------------------------
 #   Supervisord
@@ -182,8 +193,8 @@ RUN echo "Asia/Taipei" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
 # conventions
-COPY files/bashrc .bashrc
-COPY files/vimrc .vimrc
+COPY files/bashrc /root/.bashrc
+COPY files/vimrc /root/.vimrc
 
 # setup supervisor apps & start supervisor
 COPY files/supervisor/* /etc/supervisor/conf.d/
